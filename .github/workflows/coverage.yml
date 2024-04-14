@@ -21,3 +21,7 @@ jobs:
     - name: gcovr
       run: gcovr --xml --output=coverage.xml  .
 
+    - name: Generate a code coverage report
+      uses: threeal/gcovr-action@xml-out
+      with:
+        xml-out: coverage.xml

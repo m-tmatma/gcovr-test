@@ -21,5 +21,17 @@ jobs:
     - name: gcovr
       run: gcovr --xml --output=coverage.xml  .
 
-    - name: Generate a code coverage report
-      uses: threeal/gcovr-action@v1.0.0
+    #- name: Generate a code coverage report
+    #  uses: threeal/gcovr-action@v1.0.0
+    - name: show gcovr
+      id: gcovr-text
+      run: gcovr .
+    - name: Create comment
+      if: ${{ steps.gcovr-text.outputs.enabled }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: | 
+          ```
+          ${{ steps.get-comment-body.outputs.body }}
+          ```

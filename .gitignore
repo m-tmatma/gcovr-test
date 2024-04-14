@@ -1,0 +1,6 @@
+*.o
+*.gcda
+*.gcno
+*.gcov
+a.out
+*.xml

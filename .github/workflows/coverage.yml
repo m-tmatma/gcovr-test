@@ -29,13 +29,9 @@ jobs:
     #  uses: threeal/gcovr-action@v1.0.0
     - name: show gcovr
       id: gcovr-text
-      run: gcovr .
+      run: gcovr . > gcov.txt
     - name: Create comment
-      #if: ${{steps.fc.outputs.gcovr-text}}
       uses: peter-evans/create-or-update-comment@v1
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        body: | 
-          ```
-          ${{ steps.gcovr-text.outputs.body }}
-          ```
+        body-path: gcov.txt

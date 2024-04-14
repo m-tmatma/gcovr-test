@@ -1,0 +1,23 @@
+name: coverage
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: install
+      run: sudo apt install -y lcov gcovr
+    - name: build with coverage
+      run: gcc --coverage main.c
+    - name: run with coverage
+      run: ./a.out
+    - name: gcovr
+      run: gcovr --xml --output=coverage.xml  .
+

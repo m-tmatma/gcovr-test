@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  checks: write
+  pull-requests: write 
+
 jobs:
   build:
 
@@ -21,5 +25,16 @@ jobs:
     - name: gcovr
       run: gcovr --xml --output=coverage.xml  .
 
-    - name: Generate a code coverage report
-      uses: threeal/gcovr-action@v1.0.0
+    #- name: Generate a code coverage report
+    #  uses: threeal/gcovr-action@v1.0.0
+    - name: show gcovr
+      id: gcovr-text
+      run: |
+        echo '```'  >  gcov.txt
+        gcovr .     >> gcov.txt
+        echo '```'  >> gcov.txt
+    - name: Create comment
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body-path: gcov.txt

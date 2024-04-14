@@ -27,7 +27,7 @@ jobs:
       id: gcovr-text
       run: gcovr .
     - name: Create comment
-      if: ${{ steps.gcovr-text.outputs.enabled }}
+      if: ${{steps.fc.outputs.gcovr-text}}
       uses: peter-evans/create-or-update-comment@v1
       with:
         issue-number: ${{ github.event.pull_request.number }}

@@ -29,7 +29,10 @@ jobs:
     #  uses: threeal/gcovr-action@v1.0.0
     - name: show gcovr
       id: gcovr-text
-      run: gcovr . > gcov.txt
+      run: |
+        echo ```  >  gcov.txt
+        gcovr .   >> gcov.txt
+        echo ```  >> gcov.txt
     - name: Create comment
       uses: peter-evans/create-or-update-comment@v4
       with:
